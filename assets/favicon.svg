@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" rx="28" fill="#6b0143"/>
+  <g transform="translate(20,13) scale(0.8)">
+    <path fill="#ffa9c8" d="M61.55,0.00L138.45,0.00A20.00,20.00 0 0 1 155.77,10.00L194.23,76.60A20.00,20.00 0 0 1 194.23,96.60L155.77,163.20A20.00,20.00 0 0 1 138.45,173.20L61.55,173.20A20.00,20.00 0 0 1 44.23,163.20L5.77,96.60A20.00,20.00 0 0 1 5.77,76.60L44.23,10.00A20.00,20.00 0 0 1 61.55,0.00Z"/>
+  </g>
+  <text x="100" y="132" text-anchor="middle" font-family="Snell Roundhand, Apple Chancery, Georgia, serif" font-style="italic" font-size="112" fill="#6b0143">Š</text>
+</svg>
