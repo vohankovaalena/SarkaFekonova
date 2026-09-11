@@ -1,0 +1,8 @@
+[
+  { "href": "index.html",       "label": "Domů" },
+  { "href": "ja-sarka.html",    "label": "Já, Šárka…" },
+  { "href": "pro-firmy.html",   "label": "Pro firmy" },
+  { "href": "pro-zeny.html",    "label": "Pro ženy" },
+  { "href": "pro-deti.html",    "label": "Pro děti" },
+  { "href": "kontakt.html",     "label": "Kontakt" }
+]
