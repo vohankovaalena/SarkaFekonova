@@ -7,7 +7,11 @@ ogDescription: "Připravím vám program na míru. Pro firmy, pro ženy i pro d�
 
   <!-- ============================================================ HERO -->
   <section class="hero">
-    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__bg" aria-hidden="true">
+      {# Pravidelný šestiúhelník z brand manuálu (stejný tvar i poměr zaoblení jako dlaždice
+         v sekci „Pro koho tančím“). Do hero sekce je zvětšený a natočený, vidět je jeho roh. #}
+      <svg class="hero__bg-hex" viewBox="0 0 200 173.2" focusable="false"><path fill="currentColor" d="M61.55,0.00L138.45,0.00A20.00,20.00 0 0 1 155.77,10.00L194.23,76.60A20.00,20.00 0 0 1 194.23,96.60L155.77,163.20A20.00,20.00 0 0 1 138.45,173.20L61.55,173.20A20.00,20.00 0 0 1 44.23,163.20L5.77,96.60A20.00,20.00 0 0 1 5.77,76.60L44.23,10.00A20.00,20.00 0 0 1 61.55,0.00Z"/></svg>
+    </div>
     <div class="wrap hero__inner">
       <div class="hero__copy">
         <h1>Šárka Fekoňová</h1>
@@ -24,17 +28,30 @@ ogDescription: "Připravím vám program na míru. Pro firmy, pro ženy i pro d�
           <span class="hex__label">Vše<br>na míru</span>
         </div>
         <picture>
-          <source srcset="assets/img/sarka-hero.webp" type="image/webp">
-          <img src="assets/img/sarka-hero.png" width="1100" height="1524" alt="Šárka Fekoňová" fetchpriority="high">
+          <source srcset="assets/img/hero_sekce_image.webp" type="image/webp">
+          <img src="assets/img/hero_sekce_image.png" width="1080" height="1440" alt="Šárka Fekoňová" fetchpriority="high">
         </picture>
       </div>
     </div>
   </section>
 
+  {% set marqueeHesla = [
+    "Tanec má přesah",
+    "Buďte originálem, ne kopií",
+    "Pohyb ze srdce je vždy správný",
+    "Bude to jiné, nevšední a zaručeně to bude zážitek",
+    "Zažijte tanec jinak",
+    "Vše na míru"
+  ] %}
   <div class="marquee-strip" aria-hidden="true">
-    <div class="marquee-strip__inner">
-      <span>Tanec má přesah</span><span>Buďte originálem, ne kopií</span><span>Pohyb ze srdce je vždy správný</span><span>Zažijte tanec jinak</span><span>Vše na míru</span>
-      <span>Tanec má přesah</span><span>Buďte originálem, ne kopií</span><span>Pohyb ze srdce je vždy správný</span><span>Zažijte tanec jinak</span><span>Vše na míru</span>
+    {# Tři shodné kopie: pás se posune přesně o šířku jedné z nich,
+       tím se vrátí do výchozího stavu a smyčka nemá viditelný šev. #}
+    <div class="marquee-strip__track">
+      {%- for _ in range(0, 3) %}
+      <div class="marquee-strip__group">
+        {%- for heslo in marqueeHesla %}<span>{{ heslo }}</span>{% endfor %}
+      </div>
+      {%- endfor %}
     </div>
   </div>
 
@@ -47,39 +64,109 @@ ogDescription: "Připravím vám program na míru. Pro firmy, pro ženy i pro d�
         <p class="lead">Tanec není cíl, ale prostředek. Cílem je spokojenější, sebevědomější a energičtější člověk&nbsp;— ať už stojí v zasedačce, v sále nebo ve školce. K tomu přidávám i byznysové konzultace pro ty, kdo řeší podnikání.</p>
       </div>
 
+      {# Hexagony se najetím myší (nebo klepnutím na dotykových zařízeních) otočí
+         a odhalí, co všechno se pod danou nabídkou skrývá — stejný princip jako
+         otočné karty v sekci „Naše služby“ na webu Black Mango. Na dotykových
+         zařízeních (bez hoveru) na to upozorní ikonka ruky — stejná ikona jako
+         na Black Mango, jen v kulatém odznáčku místo ohnutého rohu karty. #}
+      {% set tapHint %}<span class="hexa__tap-hint" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="1" x2="10" y2="4"/><line x1="4.4" y1="3.1" x2="6.7" y2="5.4"/><line x1="15.6" y1="3.1" x2="13.3" y2="5.4"/><g transform="translate(2,6)"><path d="M10 9.5V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v10"/><path d="M14 10V9a2 2 0 0 0-2-2 2 2 0 0 0-2 2v1"/><path d="M18 11v-1a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></g></svg></span>{% endset %}
       <ul class="hexnav">
         <li>
-          <a class="hexa hexa--firmy" href="pro-firmy.html">
-            <svg class="hexa__shape" viewBox="0 0 173.2 200" aria-hidden="true"><path d="M173.20,61.55L173.20,138.45A20.00,20.00 0 0 1 163.20,155.77L96.60,194.23A20.00,20.00 0 0 1 76.60,194.23L10.00,155.77A20.00,20.00 0 0 1 0.00,138.45L0.00,61.55A20.00,20.00 0 0 1 10.00,44.23L76.60,5.77A20.00,20.00 0 0 1 96.60,5.77L163.20,44.23A20.00,20.00 0 0 1 173.20,61.55Z"/></svg>
-            <span class="hexa__body">
-              <h3 class="hexa__title"><span class="hexa__initial">F</span>irmy</h3>
-              <span class="sil hexa__sil sil--dav" aria-hidden="true"></span>
+          <a class="hexa hexa--firmy" href="pro-firmy.html" aria-label="Pro firmy">
+            <span class="hexa__flip">
+              <span class="hexa__face hexa__face--front">
+                <svg class="hexa__shape" viewBox="0 0 173.2 200" aria-hidden="true"><path d="M173.20,61.55L173.20,138.45A20.00,20.00 0 0 1 163.20,155.77L96.60,194.23A20.00,20.00 0 0 1 76.60,194.23L10.00,155.77A20.00,20.00 0 0 1 0.00,138.45L0.00,61.55A20.00,20.00 0 0 1 10.00,44.23L76.60,5.77A20.00,20.00 0 0 1 96.60,5.77L163.20,44.23A20.00,20.00 0 0 1 173.20,61.55Z"/></svg>
+                <span class="hexa__body">
+                  <h3 class="hexa__title"><span class="hexa__initial">F</span>irmy</h3>
+                  <span class="sil hexa__sil sil--dav" aria-hidden="true"></span>
+                </span>
+                {{ tapHint | safe }}
+              </span>
+              <span class="hexa__face hexa__face--back" aria-hidden="true">
+                <svg class="hexa__shape" viewBox="0 0 173.2 200" aria-hidden="true"><path d="M173.20,61.55L173.20,138.45A20.00,20.00 0 0 1 163.20,155.77L96.60,194.23A20.00,20.00 0 0 1 76.60,194.23L10.00,155.77A20.00,20.00 0 0 1 0.00,138.45L0.00,61.55A20.00,20.00 0 0 1 10.00,44.23L76.60,5.77A20.00,20.00 0 0 1 96.60,5.77L163.20,44.23A20.00,20.00 0 0 1 173.20,61.55Z"/></svg>
+                <span class="hexa__back">
+                  <h3 class="hexa__back-title">Pro firmy</h3>
+                  <ul class="hexa__back-list">
+                    <li>Originální pohybové programy na teambuildingy a firemní akce</li>
+                    <li>Pohyb jako benefit pro zaměstnance</li>
+                    <li>Prevence vyhoření, nástroj pro týmovou spolupráci, kreativitu a výkon</li>
+                  </ul>
+                </span>
+              </span>
             </span>
           </a>
         </li>
         <li>
-          <a class="hexa hexa--zeny" href="pro-zeny.html">
-            <svg class="hexa__shape" viewBox="0 0 173.2 200" aria-hidden="true"><path d="M173.20,61.55L173.20,138.45A20.00,20.00 0 0 1 163.20,155.77L96.60,194.23A20.00,20.00 0 0 1 76.60,194.23L10.00,155.77A20.00,20.00 0 0 1 0.00,138.45L0.00,61.55A20.00,20.00 0 0 1 10.00,44.23L76.60,5.77A20.00,20.00 0 0 1 96.60,5.77L163.20,44.23A20.00,20.00 0 0 1 173.20,61.55Z"/></svg>
-            <span class="hexa__body">
-              <h3 class="hexa__title"><span class="hexa__initial">Ž</span>eny</h3>
-              <span class="sil hexa__sil sil--zena-3" aria-hidden="true"></span>
+          <a class="hexa hexa--zeny" href="pro-zeny.html" aria-label="Pro ženy">
+            <span class="hexa__flip">
+              <span class="hexa__face hexa__face--front">
+                <svg class="hexa__shape" viewBox="0 0 173.2 200" aria-hidden="true"><path d="M173.20,61.55L173.20,138.45A20.00,20.00 0 0 1 163.20,155.77L96.60,194.23A20.00,20.00 0 0 1 76.60,194.23L10.00,155.77A20.00,20.00 0 0 1 0.00,138.45L0.00,61.55A20.00,20.00 0 0 1 10.00,44.23L76.60,5.77A20.00,20.00 0 0 1 96.60,5.77L163.20,44.23A20.00,20.00 0 0 1 173.20,61.55Z"/></svg>
+                <span class="hexa__body">
+                  <h3 class="hexa__title"><span class="hexa__initial">Ž</span>eny</h3>
+                  <span class="sil hexa__sil sil--zena-3" aria-hidden="true"></span>
+                </span>
+                {{ tapHint | safe }}
+              </span>
+              <span class="hexa__face hexa__face--back" aria-hidden="true">
+                <svg class="hexa__shape" viewBox="0 0 173.2 200" aria-hidden="true"><path d="M173.20,61.55L173.20,138.45A20.00,20.00 0 0 1 163.20,155.77L96.60,194.23A20.00,20.00 0 0 1 76.60,194.23L10.00,155.77A20.00,20.00 0 0 1 0.00,138.45L0.00,61.55A20.00,20.00 0 0 1 10.00,44.23L76.60,5.77A20.00,20.00 0 0 1 96.60,5.77L163.20,44.23A20.00,20.00 0 0 1 173.20,61.55Z"/></svg>
+                <span class="hexa__back">
+                  <h3 class="hexa__back-title">Pro ženy</h3>
+                  <ul class="hexa__back-list">
+                    <li>Workshopy, ladies nights, wellness pobyty, dámské rozlučky</li>
+                    <li>„Prostor, kde se žena může zastavit, nadechnout a načerpat energii“</li>
+                  </ul>
+                </span>
+              </span>
             </span>
           </a>
         </li>
         <li>
-          <a class="hexa hexa--deti" href="pro-deti.html">
-            <svg class="hexa__shape" viewBox="0 0 173.2 200" aria-hidden="true"><path d="M173.20,61.55L173.20,138.45A20.00,20.00 0 0 1 163.20,155.77L96.60,194.23A20.00,20.00 0 0 1 76.60,194.23L10.00,155.77A20.00,20.00 0 0 1 0.00,138.45L0.00,61.55A20.00,20.00 0 0 1 10.00,44.23L76.60,5.77A20.00,20.00 0 0 1 96.60,5.77L163.20,44.23A20.00,20.00 0 0 1 173.20,61.55Z"/></svg>
-            <span class="hexa__body">
-              <h3 class="hexa__title"><span class="hexa__initial">D</span>ěti</h3>
-              <span class="sil hexa__sil sil--deti" aria-hidden="true"></span>
+          <a class="hexa hexa--deti" href="pro-deti.html" aria-label="Pro děti">
+            <span class="hexa__flip">
+              <span class="hexa__face hexa__face--front">
+                <svg class="hexa__shape" viewBox="0 0 173.2 200" aria-hidden="true"><path d="M173.20,61.55L173.20,138.45A20.00,20.00 0 0 1 163.20,155.77L96.60,194.23A20.00,20.00 0 0 1 76.60,194.23L10.00,155.77A20.00,20.00 0 0 1 0.00,138.45L0.00,61.55A20.00,20.00 0 0 1 10.00,44.23L76.60,5.77A20.00,20.00 0 0 1 96.60,5.77L163.20,44.23A20.00,20.00 0 0 1 173.20,61.55Z"/></svg>
+                <span class="hexa__body">
+                  <h3 class="hexa__title"><span class="hexa__initial">D</span>ěti</h3>
+                  <span class="sil hexa__sil sil--deti" aria-hidden="true"></span>
+                </span>
+                {{ tapHint | safe }}
+              </span>
+              <span class="hexa__face hexa__face--back" aria-hidden="true">
+                <svg class="hexa__shape" viewBox="0 0 173.2 200" aria-hidden="true"><path d="M173.20,61.55L173.20,138.45A20.00,20.00 0 0 1 163.20,155.77L96.60,194.23A20.00,20.00 0 0 1 76.60,194.23L10.00,155.77A20.00,20.00 0 0 1 0.00,138.45L0.00,61.55A20.00,20.00 0 0 1 10.00,44.23L76.60,5.77A20.00,20.00 0 0 1 96.60,5.77L163.20,44.23A20.00,20.00 0 0 1 173.20,61.55Z"/></svg>
+                <span class="hexa__back">
+                  <h3 class="hexa__back-title">Pro děti</h3>
+                  <ul class="hexa__back-list">
+                    <li>Trenér tance v MŠ, projekt „Trenéři ve škole“</li>
+                    <li>Příprava závěrečných vystoupení (MŠ/ZŠ)</li>
+                    <li>Animátor dětských oslav – pohybové hry na míru</li>
+                  </ul>
+                </span>
+              </span>
             </span>
           </a>
         </li>
         <li>
-          <a class="hexa hexa--business" href="byznysove-konzultace.html">
-            <svg class="hexa__shape" viewBox="0 0 173.2 200" aria-hidden="true"><path d="M173.20,61.55L173.20,138.45A20.00,20.00 0 0 1 163.20,155.77L96.60,194.23A20.00,20.00 0 0 1 76.60,194.23L10.00,155.77A20.00,20.00 0 0 1 0.00,138.45L0.00,61.55A20.00,20.00 0 0 1 10.00,44.23L76.60,5.77A20.00,20.00 0 0 1 96.60,5.77L163.20,44.23A20.00,20.00 0 0 1 173.20,61.55Z"/></svg>
-            <span class="hexa__body">
-              <h3 class="hexa__title"><span class="hexa__initial">B</span>yznysové<br>konzultace</h3>
+          <a class="hexa hexa--business" href="byznysove-konzultace.html" aria-label="Byznysové konzultace">
+            <span class="hexa__flip">
+              <span class="hexa__face hexa__face--front">
+                <svg class="hexa__shape" viewBox="0 0 173.2 200" aria-hidden="true"><path d="M173.20,61.55L173.20,138.45A20.00,20.00 0 0 1 163.20,155.77L96.60,194.23A20.00,20.00 0 0 1 76.60,194.23L10.00,155.77A20.00,20.00 0 0 1 0.00,138.45L0.00,61.55A20.00,20.00 0 0 1 10.00,44.23L76.60,5.77A20.00,20.00 0 0 1 96.60,5.77L163.20,44.23A20.00,20.00 0 0 1 173.20,61.55Z"/></svg>
+                <span class="hexa__body">
+                  <h3 class="hexa__title"><span class="hexa__initial">B</span>yznysové<br>konzultace</h3>
+                </span>
+                {{ tapHint | safe }}
+              </span>
+              <span class="hexa__face hexa__face--back" aria-hidden="true">
+                <svg class="hexa__shape" viewBox="0 0 173.2 200" aria-hidden="true"><path d="M173.20,61.55L173.20,138.45A20.00,20.00 0 0 1 163.20,155.77L96.60,194.23A20.00,20.00 0 0 1 76.60,194.23L10.00,155.77A20.00,20.00 0 0 1 0.00,138.45L0.00,61.55A20.00,20.00 0 0 1 10.00,44.23L76.60,5.77A20.00,20.00 0 0 1 96.60,5.77L163.20,44.23A20.00,20.00 0 0 1 173.20,61.55Z"/></svg>
+                <span class="hexa__back">
+                  <h3 class="hexa__back-title">Byznysové konzultace</h3>
+                  <ul class="hexa__back-list">
+                    <li>Nastavení procesů pro firmy a živnostníky</li>
+                    <li>Vývoj systémů, administrativní výpomoc</li>
+                    <li>Školení spolupracovníků</li>
+                    <li>Testování firemních aplikací</li>
+                  </ul>
+                </span>
+              </span>
             </span>
           </a>
         </li>
@@ -93,7 +180,7 @@ ogDescription: "Připravím vám program na míru. Pro firmy, pro ženy i pro d�
       <div>
         <p class="eyebrow">Já, Šárka…</p>
         <h2>Z ředitelny zpátky na parket</h2>
-        <p>Prošla jsem byznysem, rozvodem i odchodem z pozice ředitelky. A ve chvíli, kdy toho bylo nejvíc, jsem se vrátila k tomu, co mě drží nad vodou od šesti let&nbsp;— k tanci.</p>
+        <p>Prošla jsem byznysem, rozvodem i odchodem z pozice ředitelky. Až když jsem si po letech dopřála čas na sebe, ozval se znovu tanec&nbsp;— to, co mě provází od šesti let.</p>
         <p>Dneska propojuju dva světy, které spolu na první pohled nesouvisí: byznys a pohyb. Vím, co obnáší vést tým, i co dokáže jedna hodina, kdy si člověk dovolí být sám sebou.</p>
         <p class="quote">„Nejsem dirigent. Jsem průvodkyně.“</p>
         <div class="btn-row" style="margin-top:1.6rem">
@@ -101,10 +188,13 @@ ogDescription: "Připravím vám program na míru. Pro firmy, pro ženy i pro d�
         </div>
       </div>
       <div class="media media--cut media--tall">
-        <img src="assets/img/foto-pohyb.jpg" width="1000" height="1866" alt="Žena v pohybu s rukama nad hlavou" loading="lazy">
+        <picture>
+          <source srcset="assets/img/home_page_jasarka_image.webp" type="image/webp">
+          <img src="assets/img/home_page_jasarka_image.jpg" width="1200" height="1600" alt="Šárka Fekoňová v tanečním otočení, vlající sukně" loading="lazy">
+        </picture>
         <div class="hex media__hex" aria-hidden="true">
           <svg viewBox="0 0 200 173.2"><path fill="currentColor" d="M61.55,0.00L138.45,0.00A20.00,20.00 0 0 1 155.77,10.00L194.23,76.60A20.00,20.00 0 0 1 194.23,96.60L155.77,163.20A20.00,20.00 0 0 1 138.45,173.20L61.55,173.20A20.00,20.00 0 0 1 44.23,163.20L5.77,96.60A20.00,20.00 0 0 1 5.77,76.60L44.23,10.00A20.00,20.00 0 0 1 61.55,0.00Z"/></svg>
-          <span class="hex__label">Tanec<br>od 6&nbsp;let</span>
+          <span class="hex__label">Já, Šárka</span>
         </div>
       </div>
     </div>

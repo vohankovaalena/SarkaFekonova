@@ -49,6 +49,31 @@ document.querySelectorAll("[data-year]").forEach((el) => {
   el.textContent = String(new Date().getFullYear());
 });
 
+/* --------------------------------------- Otočné hexagony „Pro koho tančím“ */
+/* Na zařízeních bez hoveru (dotykové displeje) otočí hexagon až první klepnutí
+   — teprve druhé (na už otočeném hexagonu) proklikne na cílovou stránku. */
+(function initHexFlip() {
+  if (window.matchMedia("(hover: hover)").matches) return;
+
+  const hexagony = document.querySelectorAll(".hexnav .hexa");
+  if (!hexagony.length) return;
+
+  hexagony.forEach((hexa) => {
+    hexa.addEventListener("click", (e) => {
+      if (hexa.classList.contains("is-flipped")) return;
+      e.preventDefault();
+      hexagony.forEach((other) => { if (other !== hexa) other.classList.remove("is-flipped"); });
+      hexa.classList.add("is-flipped");
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".hexnav .hexa")) {
+      hexagony.forEach((hexa) => hexa.classList.remove("is-flipped"));
+    }
+  });
+})();
+
 /* --------------------------------------------------------------- Video */
 document.querySelectorAll("[data-video]").forEach((frame) => {
   frame.addEventListener("click", () => {
