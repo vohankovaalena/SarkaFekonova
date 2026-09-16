@@ -414,6 +414,9 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
   text-align: center; text-decoration: none;
   color: var(--hexa-fg, var(--cream));
   perspective: 1400px;               /* hloubka pro otočení .hexa__flip */
+  /* Bez tohohle prohlížeč na dotyk sám podbarví celý <a> — tedy obdélník
+     přes špičatý hexagon — přes vlastní hover/tap stín. */
+  -webkit-tap-highlight-color: transparent;
 }
 .hexa:focus-visible { outline-offset: 6px; }
 /* Nadzvednutí + stín patří na <li>, ne na .hexa samotný — na Safari/WebKit
@@ -796,6 +799,7 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
 .form__status { font-size: var(--step--1); border-radius: 14px; padding: .9rem 1.1rem; display: none; }
 .form__status[data-state="ok"] { display: block; background: var(--tint); color: var(--ink); }
 .form__status[data-state="error"] { display: block; background: #fde8e6; color: #7a1c16; }
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
 /* formulář položený na barevnou sekci musí zůstat čitelný */
 .section--brand .field > label { color: var(--on-brand); }
@@ -845,15 +849,23 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
   width: min(34%, 19rem); color: var(--accent); opacity: .68;
   -webkit-mask-position: center right; mask-position: center right;
 }
-@media (max-width: 47.99rem) { .page-hero .sil-deco { opacity: .18; right: -10%; } }
+@media (max-width: 47.99rem) { .page-hero .sil-deco { opacity: .18; right: 8%; } }
 /* Pro děti — hero: limetkové pozadí, švestkový text; tlačítko a postavičky musí zůstat čitelné na světlém podkladu */
 [data-theme="deti"] .page-hero { --brand: #e4faa1; --on-brand: #6b0143; }
 [data-theme="deti"] .page-hero .sil-deco { color: #ffa9c8; }
+@media (max-width: 47.99rem) {
+  /* na mobilu je pod hlavním textem tlačítko „Poptat lekce“ — postavičky posuneme dolů a doleva, ať jsou vedle něj vidět, a na světlém limetkovém pozadí je světle růžová skoro neviditelná */
+  [data-theme="deti"] .page-hero .sil-deco { top: 46%; bottom: 4%; right: 12%; color: var(--plum); opacity: .55; }
+}
 [data-theme="deti"] .page-hero :focus-visible { outline-color: #6b0143; }
 [data-theme="deti"] .page-hero .btn--accent { background: #6b0143; color: #f7f3e3; }
 [data-theme="deti"] .page-hero .btn--accent:hover { background: color-mix(in srgb, #6b0143 82%, black); color: #f7f3e3; }
 /* Pro firmy — hero: tlačítko krémové (jen v hero, hlavička beze změny), postavičky v barvě podkladu sekce „Jak spolupráce probíhá“ */
 [data-theme="firmy"] .page-hero .sil-deco { color: var(--mist); }
+@media (max-width: 47.99rem) {
+  /* na mobilu je pod hlavním textem tlačítko „Poptat program“ — postavičky posuneme dolů a doleva, ať jsou vedle něj vidět */
+  [data-theme="firmy"] .page-hero .sil-deco { top: 48%; bottom: 4%; right: 14%; opacity: .3; }
+}
 @media (min-width: 48rem) and (max-width: 61.99rem) {
   /* na tabletu je hero užší a světlá postavička je moc blízko textu — ztmavíme ji blíž k pozadí */
   [data-theme="firmy"] .page-hero .sil-deco { color: var(--brand-deep); }

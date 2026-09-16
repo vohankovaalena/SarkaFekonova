@@ -6,10 +6,10 @@
    NASTAVENÍ — vyplňte před spuštěním webu
    ------------------------------------------------------------------------- */
 const SITE = {
-  /* Endpoint, kam se odesílají poptávkové formuláře.
-     Např. Formspree: "https://formspree.io/f/xxxxxxxx"
-     Když zůstane prázdný, formulář otevře předvyplněný e-mail. */
-  formEndpoint: "",
+  /* Formuláře se odesílají přes Web3Forms (web3forms.com) — zdarma, bez
+     vlastního serveru. Když zůstane formEndpoint prázdný, formulář otevře
+     předvyplněný e-mail. */
+  formEndpoint: "https://api.web3forms.com/submit",
   /* E-mail pro záložní odeslání formuláře. */
   email: "info@sarkafekonova.cz"
 };
@@ -155,7 +155,7 @@ document.querySelectorAll("form[data-form]").forEach((form) => {
         lines.push(`${label.textContent.replace("*", "").trim()}: ${input.value.trim()}`);
       }
     });
-    const subject = data.get("_subject") || "Poptávka z webu";
+    const subject = data.get("subject") || "Poptávka z webu";
     window.location.href =
       `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
     if (status) {
