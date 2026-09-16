@@ -129,6 +129,7 @@ h3::first-letter,
   padding-right: .07em;
 }
 .no-script::first-letter { font-family: inherit; font-size: inherit; line-height: inherit; padding-right: 0; }
+.script-letter { font-family: var(--font-script); font-size: 1.42em; line-height: .7; padding-right: .07em; }
 
 h1, h2, h3 { color: var(--brand); }
 h1 { font-size: var(--step-4); }
@@ -233,15 +234,15 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
 }
 .sil-deco { position: absolute; z-index: 0; opacity: .9; }
 
-.sil--zena-1  { -webkit-mask-image: url("../sil/zena-1.png");  mask-image: url("../sil/zena-1.png"); }
-.sil--zena-2  { -webkit-mask-image: url("../sil/zena-2.png");  mask-image: url("../sil/zena-2.png"); }
-.sil--zena-3  { -webkit-mask-image: url("../sil/zena-3.png");  mask-image: url("../sil/zena-3.png"); }
-.sil--zena-4  { -webkit-mask-image: url("../sil/zena-4.png");  mask-image: url("../sil/zena-4.png"); }
-.sil--zena-5  { -webkit-mask-image: url("../sil/zena-5.png");  mask-image: url("../sil/zena-5.png"); }
-.sil--dite-1  { -webkit-mask-image: url("../sil/dite-1.png");  mask-image: url("../sil/dite-1.png"); }
-.sil--dite-2  { -webkit-mask-image: url("../sil/dite-2.png");  mask-image: url("../sil/dite-2.png"); }
-.sil--deti    { -webkit-mask-image: url("../sil/deti.png");    mask-image: url("../sil/deti.png"); }
-.sil--dav     { -webkit-mask-image: url("../sil/dav.png");     mask-image: url("../sil/dav.png"); }
+.sil--zena-1  { -webkit-mask-image: url("../sil/zena-1.webp");  mask-image: url("../sil/zena-1.webp"); }
+.sil--zena-2  { -webkit-mask-image: url("../sil/zena-2.webp");  mask-image: url("../sil/zena-2.webp"); }
+.sil--zena-3  { -webkit-mask-image: url("../sil/zena-3.webp");  mask-image: url("../sil/zena-3.webp"); }
+.sil--zena-4  { -webkit-mask-image: url("../sil/zena-4.webp");  mask-image: url("../sil/zena-4.webp"); }
+.sil--zena-5  { -webkit-mask-image: url("../sil/zena-5.webp");  mask-image: url("../sil/zena-5.webp"); }
+.sil--dite-1  { -webkit-mask-image: url("../sil/dite-1.webp");  mask-image: url("../sil/dite-1.webp"); }
+.sil--dite-2  { -webkit-mask-image: url("../sil/dite-2.webp");  mask-image: url("../sil/dite-2.webp"); }
+.sil--deti    { -webkit-mask-image: url("../sil/deti.webp");    mask-image: url("../sil/deti.webp"); }
+.sil--dav     { -webkit-mask-image: url("../sil/dav.webp");     mask-image: url("../sil/dav.webp"); }
 
 /* Gradient Šárčina příběhu — prolíná barvy všech tří sekcí */
 .gradient-story {
@@ -257,17 +258,9 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
 }
 .site-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4.6rem; }
 
-.logo { display: inline-flex; align-items: flex-start; gap: .3rem; text-decoration: none; color: var(--plum); }
-.logo__name {
-  font-family: var(--font-head); font-weight: 400; font-size: 1.9rem; line-height: 1;
-  letter-spacing: -.03em;
-}
-.logo__name::first-letter { font-family: var(--font-script); font-size: 1.5em; line-height: .55; padding-right: .01em; }
-.logo__surname {
-  font-family: var(--font-head); font-size: .58rem; font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase; margin-top: .25rem; white-space: nowrap;
-}
-.site-footer .logo { color: var(--cream); }
+.logo { display: inline-flex; align-items: center; text-decoration: none; }
+.logo img { display: block; height: clamp(3.4rem, 6vw, 4.4rem); width: auto; }
+.site-footer .logo img { height: clamp(3.8rem, 6vw, 5rem); }
 
 .nav__list { display: flex; align-items: center; gap: clamp(.4rem, 1.4vw, 1.4rem); list-style: none; margin: 0; padding: 0; }
 .nav__link {
@@ -341,6 +334,12 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
   .hero__art { margin-top: -1rem; }
   /* hexagon by na malých displejích padal do obličeje */
   .hero__hex { display: none; }
+}
+@media (min-width: 48rem) and (max-width: 61.99rem) {
+  /* na tabletu je sloupec širší než foto (img je display:block), takže
+     samotné foto zůstává přišpendlené vlevo – posuneme ho k pravému okraji */
+  .hero__art { justify-self: end; }
+  .hero__art img { margin-inline-start: auto; }
 }
 @media (min-width: 62rem) {
   /* Na šířku je vidět pravý cíp šestiúhelníku ve výšce 26 % hero sekce. */
@@ -424,15 +423,26 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
 .hexnav > li:has(.hexa:hover),
 .hexnav > li:has(.hexa:focus-visible) {
   transform: translateY(-6px);
-  filter: drop-shadow(0 18px 32px rgba(42,18,32,.22));
 }
+.hexnav > li:has(.hexa:not(.hexa--info):hover),
+.hexnav > li:has(.hexa:not(.hexa--info):focus-visible) {
+  filter: drop-shadow(0 2px 4px rgba(42,18,32,.2)) drop-shadow(0 14px 20px rgba(42,18,32,.22));
+}
+/* Informační hexagony mají stín jako rozmazanou kopii tvaru přímo v SVG.
+   CSS drop-shadow na nadzvedávaném <li> Safari ořezávalo do obdélníku. */
+.svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.hexa__shadow { fill: rgba(42,18,32,.28); stroke: none; opacity: 0; transition: opacity .22s ease; }
+.hexa--info:hover .hexa__shadow { opacity: 1; }
 
 /* --- Otočení hexagonu (přední/zadní strana), stejný princip jako otočné
    karty v sekci „Naše služby“ na webu Black Mango. --- */
 .hexa__flip {
   position: absolute; inset: 0;
   transform-style: preserve-3d;
-  transition: transform .7s cubic-bezier(.4, .2, .2, 1);
+  /* Souměrná křivka (viz .hexa__face níž) — u nesouměrné by otočení v čase
+     „half-way“ neodpovídalo skutečným 90°, kdy se strany mají přehodit, a
+     chvíli by nebyla vidět ani jedna strana (probliknutí). */
+  transition: transform .7s cubic-bezier(.4, 0, .6, 1);
 }
 .hexa:hover .hexa__flip,
 .hexa:focus-visible .hexa__flip,
@@ -449,7 +459,7 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
      se zrovna nedívá k divákovi, schováme ještě přes viditelnost — přepne se
      v polovině otočení, takže na animaci to není vidět. */
   visibility: hidden;
-  transition: transform .7s cubic-bezier(.4, .2, .2, 1), visibility 0s linear .35s;
+  transition: visibility 0s linear .35s;
 }
 .hexa__face--front { visibility: visible; }
 .hexa__face--back { transform: rotateY(180deg); }
@@ -644,6 +654,27 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
   .hexnav--quad .hexa--info .hexa__body { width: 76%; }
 }
 
+/* Pět dlaždic — tři nahoře, dvě zapadlé do žlábků mezi nimi (stejná
+   velikost hexagonu jako u trojice/šestice výše). */
+.hexnav--penta { max-width: 53rem; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.hexnav--penta > li:nth-child(1) { grid-area: 1 / 1 / auto / span 2; }
+.hexnav--penta > li:nth-child(2) { grid-area: 1 / 3 / auto / span 2; }
+.hexnav--penta > li:nth-child(3) { grid-area: 1 / 5 / auto / span 2; }
+.hexnav--penta > li:nth-child(4) { grid-area: 2 / 2 / auto / span 2; }
+.hexnav--penta > li:nth-child(5) { grid-area: 2 / 4 / auto / span 2; }
+.hexnav--penta > li:nth-child(-n+3) { margin-top: 0; }
+.hexnav--penta > li:nth-child(n+4)  { margin-top: -28%; }
+
+@media (max-width: 47.99rem) {
+  /* Na mobilu stejný cikcak jako u ostatních voštin. */
+  .hexnav--penta { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 23rem; }
+  .hexnav--penta > li:nth-child(odd)  { grid-column: 1 / span 2; }
+  .hexnav--penta > li:nth-child(even) { grid-column: 2 / span 2; }
+  .hexnav--penta > li:nth-child(n)    { grid-row: auto; }
+  .hexnav--penta > li:nth-child(1)    { margin-top: 0; }
+  .hexnav--penta > li:nth-child(n+2)  { margin-top: -28%; }
+}
+
 /* ---------------------------------------------------- 10. Karty */
 .card {
   background: var(--cream);
@@ -684,14 +715,31 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
   color: var(--accent); z-index: 2;
 }
 .media__hex .hex__label { color: var(--on-accent); font-size: var(--step--1); }
+.media__hex--lg { width: clamp(9rem, 15vw, 12rem); }
+.media__hex--lg .hex__label { font-size: clamp(.72rem, .68rem + .2vw, .82rem); padding: .5em .8em; }
+
+@media (min-width: 48rem) and (max-width: 61.99rem) {
+  /* na tabletu je split jednosloupcový a foto 3:4 přes celou šířku je zbytečně obří */
+  .media--tall { max-width: 26rem; margin-inline: auto; }
+  /* na tabletu leží spodek media--wide bloku blízko šikmého řezu sekce (cut-tb)
+     a spodní hrana šestiúhelníku se do něj zařezává — posunout výš */
+  .media--wide .media__hex { bottom: .8rem; }
+  /* foto na stránkách Pro firmy / Pro ženy / Pro děti je přes celou šířku sloupce zbytečně velké */
+  [data-theme="firmy"] .media--wide,
+  [data-theme="zeny"] .media--wide,
+  [data-theme="deti"] .media--wide { max-width: 28rem; margin-inline: auto; }
+}
 
 /* Video */
 .video-frame {
   position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius-lg); overflow: hidden;
   border: 0; padding: 0; width: 100%; cursor: pointer; display: block;
   background-image: linear-gradient(118deg, var(--lime) 0%, var(--pink) 42%, #a06bd8 68%, var(--indigo) 100%);
+  background-size: cover; background-position: center;
 }
-.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-frame--home { background-image: url("../img/thumbnail_fekonova.webp"); }
+.video-frame--firmy { background-image: url("../img/thumbnail_fekonova_firmy.webp"); }
+.video-frame iframe, .video-frame video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
 .video-frame__poster { position: absolute; inset: 0; display: grid; place-items: center; gap: 1rem; align-content: center; color: var(--cream); }
 .video-frame__poster::before {
   content: ""; position: absolute; inset: 0;
@@ -784,6 +832,8 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
 }
 .social a:hover { background: var(--pink); color: var(--plum-deep); border-color: var(--pink); }
 .social svg { width: 1.15rem; height: 1.15rem; }
+.social--light a { color: var(--plum); border-color: color-mix(in srgb, var(--plum) 35%, transparent); }
+.social--light a:hover { background: var(--plum); color: var(--cream); border-color: var(--plum); }
 
 /* ------------------------------------------------- 15. Stránkový hero */
 .page-hero { background: var(--brand); color: var(--on-brand); padding-block: clamp(3rem, 7vw, 5.5rem) calc(var(--cut) + clamp(3rem, 7vw, 5.5rem)); position: relative; overflow: hidden; }
@@ -796,6 +846,22 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
   -webkit-mask-position: center right; mask-position: center right;
 }
 @media (max-width: 47.99rem) { .page-hero .sil-deco { opacity: .18; right: -10%; } }
+/* Pro děti — hero: limetkové pozadí, švestkový text; tlačítko a postavičky musí zůstat čitelné na světlém podkladu */
+[data-theme="deti"] .page-hero { --brand: #e4faa1; --on-brand: #6b0143; }
+[data-theme="deti"] .page-hero .sil-deco { color: #ffa9c8; }
+[data-theme="deti"] .page-hero :focus-visible { outline-color: #6b0143; }
+[data-theme="deti"] .page-hero .btn--accent { background: #6b0143; color: #f7f3e3; }
+[data-theme="deti"] .page-hero .btn--accent:hover { background: color-mix(in srgb, #6b0143 82%, black); color: #f7f3e3; }
+/* Pro firmy — hero: tlačítko krémové (jen v hero, hlavička beze změny), postavičky v barvě podkladu sekce „Jak spolupráce probíhá“ */
+[data-theme="firmy"] .page-hero .sil-deco { color: var(--mist); }
+@media (min-width: 48rem) and (max-width: 61.99rem) {
+  /* na tabletu je hero užší a světlá postavička je moc blízko textu — ztmavíme ji blíž k pozadí */
+  [data-theme="firmy"] .page-hero .sil-deco { color: var(--brand-deep); }
+}
+[data-theme="firmy"] .page-hero .btn--accent { background: #f7f3e3; color: var(--brand); }
+[data-theme="firmy"] .page-hero .btn--accent:hover { background: color-mix(in srgb, #f7f3e3 82%, var(--ink)); color: var(--brand); }
+/* Pro firmy / Byznysové konzultace — accent (švestková) na indigovém pozadí je nečitelný, eyebrow v CTA sekci proto bílý */
+[data-theme="firmy"] .section--brand .eyebrow { color: var(--on-brand); }
 /* Hero Šárčina příběhu — gradient prolínající barvy všech tří sekcí */
 .page-hero--story {
   color: var(--plum-deep);

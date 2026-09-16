@@ -75,8 +75,18 @@ document.querySelectorAll("[data-year]").forEach((el) => {
 })();
 
 /* --------------------------------------------------------------- Video */
-document.querySelectorAll("[data-video]").forEach((frame) => {
+document.querySelectorAll("[data-video], [data-video-src]").forEach((frame) => {
   frame.addEventListener("click", () => {
+    const src = frame.dataset.videoSrc;
+    if (src) {
+      const video = document.createElement("video");
+      video.src = src;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      frame.replaceChildren(video);
+      return;
+    }
     const id = frame.dataset.video;
     if (!id || id === "VIDEO_ID") {
       const note = frame.querySelector(".video-frame__note");
