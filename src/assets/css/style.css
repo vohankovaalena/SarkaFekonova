@@ -126,10 +126,12 @@ h3::first-letter,
   font-family: var(--font-script);
   font-size: 1.42em;
   line-height: .7;
-  padding-right: .07em;
+  padding-right: .04em;
 }
 .no-script::first-letter { font-family: inherit; font-size: inherit; line-height: inherit; padding-right: 0; }
-.script-letter { font-family: var(--font-script); font-size: 1.42em; line-height: .7; padding-right: .07em; }
+.script-letter { font-family: var(--font-script); font-size: 1.42em; line-height: .7; padding-right: .04em; }
+.gap-tight::first-letter { padding-right: .01em; }
+.gap-loose::first-letter { padding-right: .11em; }
 
 h1, h2, h3 { color: var(--brand); }
 h1 { font-size: var(--step-4); }
@@ -205,6 +207,8 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
 .btn--accent:hover { background: color-mix(in srgb, var(--accent) 82%, var(--ink)); color: var(--on-accent); }
 .btn--ghost { background: transparent; color: var(--brand); border-color: currentColor; }
 .btn--ghost:hover { background: var(--brand); color: var(--on-brand); }
+.site-header .btn--accent { background: var(--plum); color: var(--pink); }
+.site-header .btn--accent:hover { background: color-mix(in srgb, var(--plum) 84%, black); color: var(--pink); }
 .section--brand .btn:not(.btn--ghost):not(.btn--accent) { background: var(--accent); color: var(--on-accent); }
 .section--brand .btn:not(.btn--ghost):not(.btn--accent):hover { background: color-mix(in srgb, var(--accent) 84%, var(--ink)); color: var(--on-accent); }
 .section--brand .btn--ghost { color: var(--on-brand); }
@@ -243,6 +247,7 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
 .sil--dite-2  { -webkit-mask-image: url("../sil/dite-2.webp");  mask-image: url("../sil/dite-2.webp"); }
 .sil--deti    { -webkit-mask-image: url("../sil/deti.webp");    mask-image: url("../sil/deti.webp"); }
 .sil--dav     { -webkit-mask-image: url("../sil/dav.webp");     mask-image: url("../sil/dav.webp"); }
+.sil--konzultace { -webkit-mask-image: url("../sil/konzultace.webp"); mask-image: url("../sil/konzultace.webp"); }
 
 /* Gradient Šárčina příběhu — prolíná barvy všech tří sekcí */
 .gradient-story {
@@ -299,59 +304,68 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
 }
 
 /* --------------------------------------------------------- 8. Hero */
-.hero { position: relative; overflow: hidden; background: var(--cream); }
-.hero__bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-/* Pravidelný šestiúhelník z brand manuálu, jen mnohonásobně zvětšený.
-   Šířka i výška jsou ve vw ve stálém poměru 200 : 173,2 — tvar se tedy
-   v každé šířce obrazovky škáluje uniformně a nikdy se nedeformuje.
-   Svislé ukotvení míchá výšku hero sekce (%) a její šířku (vw), aby spodní
-   hrana držela i u vysoké hero sekce na mobilu. */
+/* Stejný gradient + krémový šestiúhelníkový výřez (jen jeho zaoblený roh,
+   proto ta měkká křivka) na všech šířkách — na mobilu a tabletu menší a níž,
+   od 62rem větší a přes celou výšku hero sekce. Postava stojí nad oběma
+   vrstvami (z-index výš), takže může přesahovat přes hranu výřezu. */
+.hero { position: relative; overflow: hidden; }
+.hero__bg {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden;
+  background: linear-gradient(135deg, var(--lime-mist) 0%, var(--pink-mist) 45%, var(--indigo-soft) 100%);
+}
 .hero__bg-hex {
-  position: absolute; color: var(--brand); max-width: none;
+  position: absolute; color: var(--cream); max-width: none;
   width: 210vw; height: 181.86vw;
-  left: -55vw; top: calc(62% - 190.8vw);
+  left: -55vw; top: calc(62% - 172vw);
   transform: rotate(-12deg);
 }
-.hero__inner { position: relative; z-index: 2; display: grid; gap: 2rem; padding-block: clamp(2.5rem, 6vw, 4.5rem) 0; }
-.hero__copy { color: var(--on-brand); max-width: 34rem; }
-.hero__copy h1 { color: var(--on-brand); margin-bottom: .35em; }
+.hero__figure {
+  position: absolute; z-index: 1; left: 50%; bottom: 0;
+  width: min(78%, 22rem); height: auto; max-width: none; margin: 0;
+  transform: translateX(-46%);
+  object-fit: contain; object-position: bottom;
+}
+.hero__inner {
+  position: relative; z-index: 2;
+  padding: clamp(2.5rem, 8vw, 3.5rem) 0 min(39rem, 138vw);
+}
+.hero__copy { color: var(--indigo); max-width: 30rem; }
+.hero__copy h1 { color: var(--indigo); margin-bottom: .35em; }
 .hero__role {
   font-family: var(--font-head); font-size: var(--step-1); font-weight: 300;
-  letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin: 0 0 1.4rem;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--indigo); margin: 0 0 1.4rem;
 }
-.hero__copy .lead { color: color-mix(in srgb, var(--on-brand) 82%, transparent); }
-.hero__art { position: relative; align-self: end; justify-self: center; }
-.hero__art img { width: min(100%, 26rem); height: auto; filter: drop-shadow(0 24px 45px rgba(42,18,32,.22)); }
-.hero .btn--ghost { color: var(--on-brand); }
-.hero .btn--ghost:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
-.hero__hex {
-  position: absolute; z-index: 3; width: clamp(7rem, 12vw, 9.5rem); color: var(--accent);
-  right: 2%; top: 8%;
-}
-.hero__hex .hex__label { color: var(--on-accent); font-size: var(--step--1); }
+.hero__copy .lead { color: color-mix(in srgb, var(--indigo) 88%, transparent); }
+.hero .btn--accent { background: var(--indigo); color: var(--cream); }
+.hero .btn--accent:hover { background: color-mix(in srgb, var(--indigo) 84%, black); color: var(--cream); }
+.hero .btn--ghost { color: var(--indigo); border-color: var(--indigo); }
+.hero .btn--ghost:hover { background: var(--indigo); color: var(--cream); border-color: var(--indigo); }
+.hero__hex { display: none; }
 
-@media (max-width: 61.99rem) {
-  .hero__art { margin-top: -1rem; }
-  /* hexagon by na malých displejích padal do obličeje */
-  .hero__hex { display: none; }
-}
-@media (min-width: 48rem) and (max-width: 61.99rem) {
-  /* na tabletu je sloupec širší než foto (img je display:block), takže
-     samotné foto zůstává přišpendlené vlevo – posuneme ho k pravému okraji */
-  .hero__art { justify-self: end; }
-  .hero__art img { margin-inline-start: auto; }
-}
 @media (min-width: 62rem) {
-  /* Na šířku je vidět pravý cíp šestiúhelníku ve výšce 26 % hero sekce. */
+  /* Od téhle šířky je dost místa na plnoformátový gradient na pozadí a přes ni
+     přeložený roh krémového šestiúhelníku z brand manuálu, ve kterém sedí
+     text. Šířka i výška šestiúhelníku jsou ve vw ve stálém poměru 200 : 173,2,
+     takže se tvar v každé šířce obrazovky škáluje uniformně a nedeformuje. */
+  .hero { display: block; min-height: min(46rem, 78vw); }
   .hero__bg-hex {
-    width: 110vw; height: 95.26vw;
-    left: -48.37vw; top: calc(26% - 34.33vw);
+    width: 130vw; height: 112.58vw;
+    left: calc(-60vw - 40px); top: calc(50% - 56.29vw);
     transform: rotate(-14deg);
   }
-  .hero__inner { grid-template-columns: 1.02fr .98fr; align-items: center; gap: 1rem; padding-block: clamp(3rem, 5vw, 5rem) 0; }
-  .hero__copy { padding-right: 3rem; padding-bottom: clamp(2rem, 5vw, 4rem); }
-  .hero__art { justify-self: end; }
-  .hero__art img { width: min(100%, 30rem); }
+  .hero__figure {
+    left: auto; right: 27%; height: 100%; transform: none;
+  }
+  .hero__inner { padding-block: clamp(3rem, 6vw, 5rem); }
+  /* Ve volném pásu gradientu napravo od postavy (za jejím pravým okrajem
+     v 27 %) je na širokém desktopu místo na malý akcentový hexagon. */
+  .hero__hex {
+    display: grid;
+    position: absolute; z-index: 3; color: var(--accent);
+    width: clamp(7rem, 9vw, 9.5rem);
+    right: 6%; top: 12%;
+  }
+  .hero__hex .hex__label { color: var(--on-accent); font-size: var(--step--1); }
 }
 
 /* ------------------------------------------------------ 9. Dlaždice */
@@ -548,7 +562,7 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
 .hexa__initial {
   font-family: var(--font-script); font-weight: 400;
   font-size: 1.85em; line-height: .7;
-  display: inline-block; vertical-align: -.08em; margin-right: -.02em;
+  display: inline-block; vertical-align: -.08em; padding-right: .031em;
 }
 .hexa__sil {
   width: 60%; height: clamp(2.4rem, 6vw, 4rem);
@@ -903,7 +917,7 @@ p { margin: 0 0 1.1em; max-width: 68ch; }
 .contact-list span { display: block; font-size: var(--step--1); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
 
 .marquee-strip {
-  background: var(--accent); color: var(--on-accent);
+  background: var(--plum); color: var(--pink);
   padding-block: .9rem; overflow: hidden;
   font-family: var(--font-head); letter-spacing: .12em; text-transform: uppercase; font-size: var(--step--1);
 }
